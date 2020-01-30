@@ -18,10 +18,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float ControlRollFactor = -24f;
     float xThrow, yThrow;
     bool isPlayerDead = false;
+    ParticleSystem[] bullets;
     // Start is called before the first frame update
     void Start()
-    {   
-        
+    {
+         bullets = GetComponentsInChildren<ParticleSystem>();
+        Startfiring(false);
     }
 
     // Update is called once per frame
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
             transform.localPosition = CalculatePosition();
             transform.localRotation = CalculateRotation();
         }
-
+        FireAtWill();
 
     }
 
@@ -60,5 +62,32 @@ public class PlayerController : MonoBehaviour
         float rawX = transform.localPosition.x + xOffset;
         float rawY = transform.localPosition.y + yOffset;
         return new Vector3(Mathf.Clamp(rawX, -xRange, xRange), Mathf.Clamp(rawY, -yRange, yRange), transform.localPosition.z);
+    }
+    void FireAtWill()
+    {
+        if (CrossPlatformInputManager.GetButton("Fire"))
+            Startfiring(true);
+        else
+            Startfiring(false);
+    }
+    void Startfiring(bool shouldStartFiring)
+    {
+        if (shouldStartFiring)
+        {
+            foreach (var bullet in bullets)
+            {
+                if (bullet.isStopped)
+                    bullet.Play();
+            }
+        }
+        else
+        {
+            foreach (var bullet in bullets)
+            {
+                if (!bullet.isStopped)
+                    bullet.Stop();
+
+            }
+        }
     }
 }
