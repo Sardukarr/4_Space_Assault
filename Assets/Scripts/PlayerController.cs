@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 public class PlayerController : MonoBehaviour
 {
+
+    //TODO: dificulty levels, speed upon a key, information about waypoints
     [Header("Genral")]
     [Tooltip("in ms^-1")][SerializeField] float Speed = 12f;
     [Tooltip("in ms")] [SerializeField] float xRange = 5.5f;
