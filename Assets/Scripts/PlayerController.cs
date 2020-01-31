@@ -33,8 +33,8 @@ public class PlayerController : MonoBehaviour
     {
         if (!isPlayerDead)
         {
-            transform.localPosition = CalculatePosition();
-            transform.localRotation = CalculateRotation();
+            this.transform.localPosition = CalculatePosition();
+            this.transform.localRotation = CalculateRotation();
         }
         FireAtWill();
 
@@ -57,8 +57,10 @@ public class PlayerController : MonoBehaviour
 
     Vector3 CalculatePosition()
     {
+        //print("calculate");
          xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
-         yThrow = CrossPlatformInputManager.GetAxis("Vertical");
+        print(xThrow);
+        yThrow = CrossPlatformInputManager.GetAxis("Vertical");
         float xOffset = xThrow * Speed * Time.deltaTime;
         float yOffset = yThrow * Speed * Time.deltaTime;
         float rawX = transform.localPosition.x + xOffset;
